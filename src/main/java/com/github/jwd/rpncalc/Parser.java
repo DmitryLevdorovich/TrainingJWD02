@@ -1,11 +1,9 @@
 package com.github.jwd.rpncalc;
 
-import com.github.jwd.rpncalc.RPNUtility;
-
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-public class Parser {
+class Parser {
 
     public static String parseExpression(String expression) {
 

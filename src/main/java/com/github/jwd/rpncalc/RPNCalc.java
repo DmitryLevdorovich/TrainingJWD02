@@ -1,12 +1,10 @@
 package com.github.jwd.rpncalc;
 
-import com.github.jwd.rpncalc.exception.RPNCalcException;
+public final class RPNCalc {
 
-public class RPNCalc {
+    /*public static void main(String[] args) throws RuntimeException {
 
-    public static void main(String[] args) throws RPNCalcException {
-
-        String expression = "2+2+2*2+(5-4)";
+        String expression = "2+2+3*5-((5-4)*5)";
 
         String exprNoSpaces = expression.replaceAll("\\s+", "");
         try {
@@ -15,31 +13,34 @@ public class RPNCalc {
             Double result = Calculator.calculateParsedExpression(rpnString);
             System.out.println(result);
 
-        } catch (RPNCalcException e) {
+        } catch (RuntimeException e) {
             throw e;
         } finally {
 
         }
-    }
+    }*/
 
-    public double calculate(String expression) throws RPNCalcException {
+    private RPNCalc() {}
 
-        if(!expression.isEmpty()) {
-            throw new RPNCalcException("String is empty");
+    public static double calculate(String expression) throws RuntimeException {
+
+        if(expression.isEmpty()) {
+            throw new RuntimeException("String is empty");
         }
+
+        double result = 0.0;
 
         String exprNoSpaces = expression.replaceAll("\\s+", "");
         try {
             Validator.validateExpression(exprNoSpaces);
             String rpnString = Parser.parseExpression(exprNoSpaces);
-            Double result = Calculator.calculateParsedExpression(rpnString);
-
-        } catch (RPNCalcException e) {
-            throw e;
+            result = Calculator.calculateParsedExpression(rpnString);
+        } catch (RuntimeException e) {
+            e.printStackTrace(System.out);
         } finally {
-
+            //System.out.println("Unknown error");
         }
 
-        return 0;
+        return result;
     }
 }

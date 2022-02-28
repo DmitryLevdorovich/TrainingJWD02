@@ -1,29 +1,25 @@
 package com.github.jwd.rpncalc;
 
-import com.github.jwd.rpncalc.exception.RPNCalcException;
-
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.regex.Pattern;
 
 final class Validator {
 
-    private Validator() {
+    private Validator() {}
 
-    }
-
-    public static void validateExpression(String expression) throws RPNCalcException {
+    public static void validateExpression(String expression) throws RuntimeException {
 
         if(!containsOnlyAllowedSymbols(expression)) {
-            throw new RPNCalcException("Validation failed. Not allowed symbols found.");
+            throw new RuntimeException("Validation failed. Not allowed symbols found.");
         }
 
         if(!areBracketsCorrect(expression)) {
-            throw new RPNCalcException("Validation failed. Brackets are not balanced.");
+            throw new RuntimeException("Validation failed. Brackets are not balanced.");
         }
 
         if(!areOperatorsCorrect(expression)) {
-            throw new RPNCalcException("Validation failed. Operators are incorrect.");
+            throw new RuntimeException("Validation failed. Operators are incorrect.");
         }
     }
 
@@ -69,7 +65,6 @@ final class Validator {
 
                 if(!Pattern.matches("([\\d\\)][\\-\\+\\/\\*][\\d\\(])", stringBuilder.toString())) {
                     return false;
-                    //throw new RPNValidationException("Operator syntax error at pos: " + i);
                 }
 
                 stringBuilder = new StringBuilder();

@@ -29,21 +29,31 @@ class Calculator {
             if(RPNUtility.isArithmeticOperator(rpnExpression.charAt(i))) {
                 double a = stack.pop();
                 double b = stack.pop();
-
-                if(rpnExpression.charAt(i) == '+') {
-                    stack.push(b + a);
-                } else if(rpnExpression.charAt(i) == '-') {
-                    stack.push(b - a);
-                } else if(rpnExpression.charAt(i) == '*') {
-                    stack.push(b * a);
-                } else if(rpnExpression.charAt(i) == '/') {
-                    stack.push(b / a);
-                }
-
-
+                stack.push(performArithmeticOperation(a, b, rpnExpression.charAt(i)));
             }
         }
 
         return stack.pop();
+    }
+
+    private static double performArithmeticOperation(double a, double b, char op) {
+
+        switch (op) {
+            case '+':
+                return b + a;
+            case '-':
+                return b - a;
+            case '*':
+                return b * a;
+            case '/':
+                if(a != 0) {
+                    return b / a;
+                } else {
+                    throw new IllegalArgumentException("Division by 0." + b + " / " + a);
+                }
+            default:
+                throw new IllegalArgumentException("Unexpected operator " + op);
+        }
+
     }
 }
